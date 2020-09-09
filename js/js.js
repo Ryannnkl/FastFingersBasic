@@ -19,9 +19,33 @@ function randleWords(words = []) {
   });
 }
 
+function contagem() {
+  let timer = 40;
+  return function () {
+    let minutos, segundos;
+
+    minutos = Math.floor(timer / 60);
+    segundos = timer % 60 <= 9 ? "0" + (timer % 60) : timer % 60;
+    document.getElementById("mostracontagem").innerHTML =
+      minutos + ":" + segundos;
+    timer--;
+
+    if (timer < 0) {
+      document.getElementById("mostracontagem").innerText = points;
+      document.getElementById("input").hidden = false;
+    }
+  };
+}
+
 randleWords(words);
+let initial = 1;
 
 function handleKeyPress(e) {
+  if (initial == 1) {
+    const start = contagem();
+    var comeca = setInterval(start, 1000);
+    initial++;
+  }
   const input = document.getElementById("input");
   if (e.key === " ") {
     countTrim++;
